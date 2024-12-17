@@ -12,7 +12,7 @@ select_version() {
         echo "Version 4 selected"
         DIR=$(dirname $0)/4/bullseye/base
     elif [ "$VERSION" == "3" ]; then
-        echo "Version 4 selected"
+        echo "Version 3 selected"
         DIR=$(dirname $0)/3.0/buster/amd64/base
     else
         echo "No valid version selected. Must provide a valid version via -3 or -4 flags"
@@ -151,7 +151,11 @@ fi
 
 if [ ${#argarray[@]} == 1 ] && [ "$argarray" == "all" ]; then
     echo "All supported languages targetted."
-    supportedlangs=("java" "node" "python" "dotnet" "powershell")
+    if [ "$VERSION" == "4" ]; then
+        supportedlangs=("java" "node" "python" "dotnet" "powershell")
+    else
+        supportedlangs=("java" "node" "python" "dotnet")
+    fi
     argarray=(${supportedlangs[@]})
 fi
 
